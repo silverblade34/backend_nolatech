@@ -1,21 +1,36 @@
 import { AnswerDto, CreateReportDto } from '../dtos/create-report.dto';
-import EvaluationModel from '../models/evaluation.model';
-import { IQuestion } from '../models/question.model';
-import ReportModel, { IReport } from '../models/report.model';
+import { ReportRepository } from '../repositories/report.repository';
 import { QuestionRepository } from '../repositories/question.repository';
+import { IQuestion } from '../models/question.model';
+import { EvaluationRepository } from '../repositories/evaluation.repository';
+import { Report } from '../interfaces/report.interface';
+import { EmployeeRepository } from '../repositories/employee.repository';
 
+const reportRepository = new ReportRepository();
+const evaluationRepository = new EvaluationRepository();
 const questionRepository = new QuestionRepository();
+const employeeRepository = new EmployeeRepository();
 
 export const createReport = async (data: CreateReportDto) => {
-    const findEvaluation = await EvaluationModel.findById(data.evaluationId);
+    const findEvaluation = await evaluationRepository.findById(data.evaluationId.toString());
     if (!findEvaluation) {
         throw new Error("La evaluación no existe.");
     }
-    const findQuestions = await questionRepository.findByEvaluationId(findEvaluation._id.toString())
-
-    if (!findQuestions) {
-        throw new Error("La evaluación no tiene preguntas asociadas");
+    const findReportExisting = await reportRepository.findReportsByEvaluationEmployeeAndEvaluator(findEvaluation._id.toString(), findEvaluation.employeeId.toString(), data.evaluatorId.toString());
+    if (findReportExisting) {
+        throw new Error("Ya se encuentra registrado un registro de esta evaluación para este empleado.");
     }
+    const [findQuestions, findEmployee] = await Promise.all([
+        questionRepository.findByEvaluationId(findEvaluation._id.toString()),
+        employeeRepository.findOneById(findEvaluation.employeeId.toString()),
+    ]);
+    if (!findQuestions) {
+        throw new Error("La evaluación no tiene preguntas asociadas.");
+    }
+    if (!findEmployee) {
+        throw new Error("El empleado asociado a esta evaluación no se encuentra registrado");
+    }
+
     const isEvaluatorAuthorized = findEvaluation.evaluators.some(
         (evaluator: any) => evaluator._id.toString() === data.evaluatorId.toString()
     );
@@ -35,15 +50,16 @@ export const createReport = async (data: CreateReportDto) => {
 
     const score = calculateScore(answers, findQuestions).toFixed(2);
 
-    const report: IReport = new ReportModel({
+    const report: Report = {
         evaluationId: data.evaluationId,
         evaluatorId: data.evaluatorId,
-        employeeId: data.employeeId,
-        score,
+        departmentId: findEmployee?.departmentId,
+        employeeId: findEvaluation.employeeId,
+        score: parseFloat(score),
         answers
-    });
+    };
 
-    return await report.save();
+    return await reportRepository.create(report);
 };
 
 const calculateScore = (answers: AnswerDto[], findQuestions: IQuestion[]): number => {
@@ -55,8 +71,8 @@ const calculateScore = (answers: AnswerDto[], findQuestions: IQuestion[]): numbe
             if (optionIndex === -1) {
                 throw new Error(`Respuesta inválida para la pregunta ${question.text}`);
             }
-            let questionScore = 0;
 
+            let questionScore = 0;
             switch (question.scaleType) {
                 case 'Likert':
                     questionScore = optionIndex;
@@ -70,7 +86,6 @@ const calculateScore = (answers: AnswerDto[], findQuestions: IQuestion[]): numbe
                 default:
                     throw new Error(`Escala desconocida para la pregunta ${question.text}`);
             }
-
             score += questionScore;
         }
     });

@@ -5,6 +5,7 @@ export interface IEvaluation extends Document {
     period: string;
     status: 'draft' | 'submitted' | 'completed';
     type: 'self-assessment' | 'peer-assessment' | 'manager-assessment';
+    employeeId: Schema.Types.ObjectId;
     evaluators: Schema.Types.ObjectId[];
 }
 

@@ -14,7 +14,7 @@ export const getEvaluations = async () => {
 };
 
 export const getEvaluation = async (id: string) => {
-  const findEvaluation = await evaluationRepository.findById(id);
+  const findEvaluation = await evaluationRepository.findByIdWithUser(id);
   if (!findEvaluation) {
     throw new Error("La evaluación no se encuentra registrada.");
   }

@@ -11,11 +11,16 @@ export class EvaluationRepository {
     return EvaluationModel.find();
   }
 
-  async findById(id: string): Promise<IEvaluation | null> {
+  async findByIdWithUser(id: string): Promise<IEvaluation | null> {
     const evaluation = EvaluationModel.findById(id)
       .populate("employeeId", "name role")
       .populate("evaluators", "name role")
       .exec();
+    return evaluation;
+  }
+
+  async findById(id: string): Promise<IEvaluation | null> {
+    const evaluation = EvaluationModel.findById(id).exec();
     return evaluation;
   }
 

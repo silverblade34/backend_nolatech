@@ -11,3 +11,23 @@ export const createReportController = async (req: Request, res: Response) => {
     handleHttp(res, error instanceof Error ? error.message : "Error inesperado", 500);
   }
 };
+
+export const reportEmployeeController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const questions = await createReport(req.body);
+    handleSuccess(res, "Reporte de evaluaciones registradas por empleado", questions);
+  } catch (error) {
+    handleHttp(res, error instanceof Error ? error.message : "Error inesperado", 500);
+  }
+};
+
+export const reportDepartmentController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const questions = await createReport(req.body);
+    handleSuccess(res, "Reporte de evaluaciones registradas por departamento", questions);
+  } catch (error) {
+    handleHttp(res, error instanceof Error ? error.message : "Error inesperado", 500);
+  }
+};

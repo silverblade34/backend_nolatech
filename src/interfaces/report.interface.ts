@@ -4,6 +4,7 @@ export interface Report {
     evaluationId: mongoose.Schema.Types.ObjectId;
     evaluatorId: mongoose.Schema.Types.ObjectId;
     employeeId: mongoose.Schema.Types.ObjectId;
+    departmentId: mongoose.Schema.Types.ObjectId;
     score: number;
     answers: Answer[];
 }
