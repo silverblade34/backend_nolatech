@@ -3,17 +3,22 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IEvaluation extends Document {
     _id: Schema.Types.ObjectId;
     period: string;
-    status: 'draft' | 'completed';
-    type: string;
+    status: 'draft' | 'submitted' | 'completed';
+    type: 'self-assessment' | 'peer-assessment' | 'manager-assessment';
     questions: mongoose.Types.Array<string>;
 }
 
 const EvaluationSchema: Schema = new Schema(
     {
         period: { type: String, required: true },
-        status: { type: String, required: true, enum: ['draft', 'completed'], default: 'draft' },
-        type: { type: String, required: true },
-        questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
+        status: { type: String, enum: ['draft', 'submitted', 'completed'], default: 'draft' },
+        type: {
+            type: String,
+            enum: ['self-assessment', 'peer-assessment', 'manager-assessment'],
+            required: true
+        },
+        employeeId: { type: Schema.Types.ObjectId, ref: 'employees', required: true },
+        evaluators: [{ type: Schema.Types.ObjectId, ref: 'employees' }],
     },
     {
         timestamps: true,

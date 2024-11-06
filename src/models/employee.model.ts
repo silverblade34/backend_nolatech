@@ -8,6 +8,7 @@ export interface IEmployee extends Document {
   email: string;
   phone: string;
   hireDate: Date;
+  role: "manager" | "employee";
   userId: mongoose.Schema.Types.ObjectId;
 }
 
@@ -15,6 +16,7 @@ const EmployeeSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
     position: { type: String, required: true },
+    role: { type: String, enum: ["manager", "employee"], required: true },
     departmentId: { type: mongoose.Schema.Types.ObjectId, ref: "departments", required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },

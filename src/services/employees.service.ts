@@ -27,7 +27,7 @@ export const insertEmployee = async (createEmployeeDto: CreateEmployeeDto) => {
   const userData: User = {
     username: createEmployeeDto.username,
     password: hashedPassword,
-    role: "employee",
+    role: createEmployeeDto.role,
   };
 
   const newUser = await userRepository.create(userData);
@@ -42,6 +42,7 @@ export const insertEmployee = async (createEmployeeDto: CreateEmployeeDto) => {
     email: createEmployeeDto.email,
     phone: createEmployeeDto.phone,
     hireDate: createEmployeeDto.hireDate,
+    role: createEmployeeDto.role,
     userId: newUser._id,
   };
 
@@ -84,7 +85,7 @@ export const updateEmployees = async (id: string, data: CreateEmployeeDto) => {
   const updatedUserData: User = {
     username: data.username,
     password: hashedPassword,
-    role: "employee",
+    role: data.role,
   };
   await userRepository.update(findUser._id.toString(), updatedUserData);
 
@@ -94,6 +95,7 @@ export const updateEmployees = async (id: string, data: CreateEmployeeDto) => {
     departmentId: data.departmentId,
     email: data.email,
     phone: data.phone,
+    role: data.role,
     hireDate: data.hireDate,
     userId: findEmployee.userId,
   };

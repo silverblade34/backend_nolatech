@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsEmail, IsIn, IsNotEmpty, IsString, MinLength } from "class-validator";
 import mongoose from "mongoose";
 
 export class CreateEmployeeDto {
@@ -30,4 +30,8 @@ export class CreateEmployeeDto {
   @MinLength(6)
   @IsNotEmpty()
   password: string;
+
+  @IsIn(["manager", "employee"])
+  @IsNotEmpty()
+  role: "manager" | "employee";
 }

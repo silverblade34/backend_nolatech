@@ -25,7 +25,7 @@ export const getDepartmentController = async (req: Request, res: Response) => {
 export const createDepartmentController = async (req: Request, res: Response) => {
   try {
     const department = await insertDepartment(req.body);
-    handleSuccess(res, "Departamento creado exitosamente", department);
+    handleSuccess(res, "Departamento creado exitosamente", department, 201);
   } catch (error) {
     handleHttp(res, error instanceof Error ? error.message : "Unexpected error", 400);
   }

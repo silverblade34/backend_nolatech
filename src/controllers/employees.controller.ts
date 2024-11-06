@@ -36,7 +36,7 @@ export const createEmployeeController = async (req: Request, res: Response) => {
   try {
     const employeeDto = plainToInstance(CreateEmployeeDto, req.body);
     const response = await insertEmployee(employeeDto);
-    handleSuccess(res, "Empleado creado con éxito", response);
+    handleSuccess(res, "Empleado creado con éxito", response, 201);
   } catch (error) {
     if (error instanceof Error) {
       handleHttp(res, error.message, 400);

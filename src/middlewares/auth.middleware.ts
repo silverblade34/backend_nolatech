@@ -19,8 +19,12 @@ export const authMiddleware = (roles: string[]) => {
       }
       req.user = decoded;
       next();
-    } catch (e) {
-      handleHttp(res, "Token inválido", 401);
+    } catch (e: any) {
+      if (e.name === "TokenExpiredError") {
+        handleHttp(res, "El token ha expirado", 401);
+      } else {
+        handleHttp(res, "Token inválido", 401);
+      }
     }
   };
 };
