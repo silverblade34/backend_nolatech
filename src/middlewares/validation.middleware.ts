@@ -17,7 +17,7 @@ export function validationMiddleware(type: any): RequestHandler {
         .flat();
       res
         .status(400)
-        .json({ message: "Validation failed", errors: errorMessages });
+        .json({ message: "Validación fallida", errors: errorMessages });
       return;
     }
 

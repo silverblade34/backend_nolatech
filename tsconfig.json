@@ -3,6 +3,7 @@
       "target": "es2016",
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
+      "typeRoots": ["./types", "./node_modules/@types"],
       "module": "commonjs",
       "esModuleInterop": true,
       "strictPropertyInitialization": false,
