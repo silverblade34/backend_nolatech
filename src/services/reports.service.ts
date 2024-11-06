@@ -92,3 +92,11 @@ const calculateScore = (answers: AnswerDto[], findQuestions: IQuestion[]): numbe
 
     return score / answers.length;
 };
+
+export const getReportsByEmployee = async (employeeId: string) => {
+    return await reportRepository.findReportsByEmployee(employeeId);
+};
+
+export const getReportsByDepartment = async (departmentId: string) => {
+    return await reportRepository.findReportsByDepartment(departmentId);
+};

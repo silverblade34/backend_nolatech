@@ -18,5 +18,13 @@ export class ReportRepository {
 
     async findReportsByEvaluationEmployeeAndEvaluator(evaluationId: string, employeeId: string, evaluatorId: string): Promise<IReport[]> {
         return await ReportModel.find({ evaluationId, employeeId, evaluatorId });
-    }    
+    }
+
+    async findReportsByEmployee(employeeId: string): Promise<IReport[]> {
+        return await ReportModel.find({ employeeId });
+    }
+
+    async findReportsByDepartment(departmentId: string): Promise<IReport[]> {
+        return await ReportModel.find({ departmentId });
+    }
 }

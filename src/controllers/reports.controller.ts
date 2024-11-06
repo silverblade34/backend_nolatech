@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleHttp } from "../utils/error.handle";
 import { handleSuccess } from "../utils/success.handle";
-import { createReport } from "../services/reports.service";
+import { createReport, getReportsByDepartment, getReportsByEmployee } from "../services/reports.service";
 
 export const createReportController = async (req: Request, res: Response) => {
   try {
@@ -15,7 +15,7 @@ export const createReportController = async (req: Request, res: Response) => {
 export const reportEmployeeController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const questions = await createReport(req.body);
+    const questions = await getReportsByEmployee(id);
     handleSuccess(res, "Reporte de evaluaciones registradas por empleado", questions);
   } catch (error) {
     handleHttp(res, error instanceof Error ? error.message : "Error inesperado", 500);
@@ -25,7 +25,7 @@ export const reportEmployeeController = async (req: Request, res: Response) => {
 export const reportDepartmentController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const questions = await createReport(req.body);
+    const questions = await getReportsByDepartment(id);
     handleSuccess(res, "Reporte de evaluaciones registradas por departamento", questions);
   } catch (error) {
     handleHttp(res, error instanceof Error ? error.message : "Error inesperado", 500);
