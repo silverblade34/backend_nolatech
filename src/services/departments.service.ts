@@ -16,9 +16,17 @@ export const getDepartments = async () => {
 };
 
 export const getDepartment = async (id: string) => {
-  return await departmentRepository.findById(id);
+  const findDepartment = await departmentRepository.findById(id);
+  if (!findDepartment) {
+    throw new Error("El departamento no se encuentra registrado");
+  }
+  return findDepartment;
 };
 
 export const updateDepartment = async (id: string, data: CreateDepartmentDto) => {
+  const findDepartment = await departmentRepository.findById(id);
+  if (!findDepartment) {
+    throw new Error("El departamento no se encuentra registrado");
+  }
   return await departmentRepository.update(id, data);
 };

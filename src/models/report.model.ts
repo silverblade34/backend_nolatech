@@ -5,6 +5,7 @@ export interface IReport extends Document {
     evaluationId: Schema.Types.ObjectId;
     evaluatorId: Schema.Types.ObjectId;
     employeeId: Schema.Types.ObjectId;
+    score: number;
     answers: { questionId: Schema.Types.ObjectId; answer: string }[];
 }
 
@@ -13,6 +14,7 @@ const ReportSchema: Schema = new Schema(
         evaluationId: { type: Schema.Types.ObjectId, ref: 'evaluations', required: true },
         evaluatorId: { type: Schema.Types.ObjectId, ref: 'employees', required: true },
         employeeId: { type: Schema.Types.ObjectId, ref: 'employees', required: true },
+        score: { type: Number, required: true },
         answers: [
             {
                 questionId: { type: Schema.Types.ObjectId, ref: 'questions', required: true },

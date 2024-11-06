@@ -57,6 +57,9 @@ export const getEmployees = async () => {
 
 export const getEmployee = async (id: string) => {
   const findEmployee = await employeeRepository.findWithUser(id);
+  if (!findEmployee) {
+    throw new Error("El empleado no se encuentra registrado");
+  }
   return findEmployee;
 };
 

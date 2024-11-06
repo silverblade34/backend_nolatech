@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { handleSuccess } from "../utils/success.handle";
 import { handleHttp } from "../utils/error.handle";
-import { getDepartment, getDepartments, insertDepartment, updateDepartment } from "../services/department.service";
+import { getDepartment, getDepartments, insertDepartment, updateDepartment } from "../services/departments.service";
 
 export const getDepartmentsController = async (req: Request, res: Response) => {
   try {

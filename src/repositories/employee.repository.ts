@@ -15,11 +15,6 @@ export class EmployeeRepository {
       .populate("userId", "username")
       .populate("departmentId", "name")
       .exec();
-  
-    if (!employee) {
-      throw new Error("Empleado no encontrado");
-    }
-  
     return employee;
   }
   
