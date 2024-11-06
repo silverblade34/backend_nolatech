@@ -10,9 +10,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(rateLimiter); 
+app.use(rateLimiter);
 
 app.use(router);
+
 db().then(() => console.log("Conexion Ready"));
 
 app.listen(PORT, () => console.log(`Listo en el puerto ${PORT}`));
+
+export default app; 
