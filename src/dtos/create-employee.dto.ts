@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import mongoose from "mongoose";
 
 export class CreateEmployeeDto {
   @IsString()
@@ -9,7 +10,7 @@ export class CreateEmployeeDto {
   position: string;
 
   @IsNotEmpty()
-  department: string;
+  departmentId: mongoose.Schema.Types.ObjectId;
 
   @IsNotEmpty()
   @IsEmail()

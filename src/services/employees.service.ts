@@ -38,7 +38,7 @@ export const insertEmployee = async (createEmployeeDto: CreateEmployeeDto) => {
   const employeeToCreate: Employee = {
     name: createEmployeeDto.name,
     position: createEmployeeDto.position,
-    department: createEmployeeDto.department,
+    departmentId: createEmployeeDto.departmentId,
     email: createEmployeeDto.email,
     phone: createEmployeeDto.phone,
     hireDate: createEmployeeDto.hireDate,
@@ -91,7 +91,7 @@ export const updateEmployees = async (id: string, data: CreateEmployeeDto) => {
   const employeeToUpdate: Employee = {
     name: data.name,
     position: data.position,
-    department: data.department,
+    departmentId: data.departmentId,
     email: data.email,
     phone: data.phone,
     hireDate: data.hireDate,

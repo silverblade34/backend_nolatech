@@ -12,15 +12,17 @@ export class EmployeeRepository {
 
   async findWithUser(id: string): Promise<IEmployee | null> {
     const employee = await EmployeeModel.findById(id)
-      .populate("userId")
+      .populate("userId", "username")
+      .populate("departmentId", "name")
       .exec();
-
+  
     if (!employee) {
       throw new Error("Empleado no encontrado");
     }
-
+  
     return employee;
   }
+  
 
   async findAll(): Promise<IEmployee[]> {
     return EmployeeModel.find();

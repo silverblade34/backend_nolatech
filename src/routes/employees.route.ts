@@ -11,12 +11,8 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 
-/**
- * http://localhost:3022/employees [POST]
- */
-
-router.get("/", getEmployeesController);
-router.get("/:id", getEmployeeController);
+router.get("/", authMiddleware(["admin", "manager"]), getEmployeesController);
+router.get("/:id", authMiddleware(["admin", "manager"]), getEmployeeController);
 router.post("/", authMiddleware(["admin"]), validationMiddleware(CreateEmployeeDto), createEmployeeController);
 router.put("/:id", authMiddleware(["admin"]), validationMiddleware(CreateEmployeeDto), updateEmployeeController);
 
