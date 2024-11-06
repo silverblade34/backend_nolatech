@@ -12,11 +12,7 @@ export const registerAuthController = async (req: Request, res: Response) => {
         const newUser = await registerUser(userData);
         handleSuccess(res, "Usuario registrado con éxito", newUser, 201);
     } catch (error) {
-        if (error instanceof Error) {
-            handleHttp(res, error.message, 400);
-        } else {
-            handleHttp(res, "Unexpected error", 500);
-        }
+        handleHttp(res, error instanceof Error ? error.message : "Unexpected error", 400);
     }
 };
 
@@ -26,10 +22,6 @@ export const loginAuthController = async (req: Request, res: Response) => {
         const { token } = await loginUser(loginData);
         handleSuccess(res, "Inicio de sesión exitoso", { token });
     } catch (error) {
-        if (error instanceof Error) {
-            handleHttp(res, error.message, 400);
-        } else {
-            handleHttp(res, "Unexpected error", 500);
-        }
+        handleHttp(res, error instanceof Error ? error.message : "Unexpected error", 400);
     }
 };

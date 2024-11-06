@@ -5,7 +5,7 @@ export interface IEvaluation extends Document {
     period: string;
     status: 'draft' | 'submitted' | 'completed';
     type: 'self-assessment' | 'peer-assessment' | 'manager-assessment';
-    questions: mongoose.Types.Array<string>;
+    evaluators: Schema.Types.ObjectId[];
 }
 
 const EvaluationSchema: Schema = new Schema(
