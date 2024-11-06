@@ -1,24 +1,26 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import UserModel, { IUser } from "../models/user.model";
+import { UserRepository } from "../repositories/user.repository";
 import { RegisterUserDto } from "../dtos/register-user.dto";
 import { LoginUserDto } from "../dtos/login-user.dto";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
 
+const userRepository = new UserRepository();
+
 export const registerUser = async (userData: RegisterUserDto) => {
-    const existingUser = await UserModel.findOne({ username: userData.username });
+    const existingUser = await userRepository.findOneByUsername(userData.username);
     if (existingUser) {
         throw new Error("El usuario ya está registrado.");
     }
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const newUser = new UserModel({ ...userData, password: hashedPassword });
-    return await newUser.save();
+    const newUser = await userRepository.create({ ...userData, password: hashedPassword });
+    return newUser;
 };
 
 export const loginUser = async (loginData: LoginUserDto) => {
-    const user = await UserModel.findOne({ username: loginData.username });
+    const user = await userRepository.findOneByUsername(loginData.username);
     if (!user) {
         throw new Error("Credenciales inválidas.");
     }

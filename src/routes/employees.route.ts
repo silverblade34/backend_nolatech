@@ -7,6 +7,7 @@ import {
 } from "../controllers/employees.controller";
 import { validationMiddleware } from "../middlewares/validation.middleware";
 import { CreateEmployeeDto } from "../dtos/create-employee.dto";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -16,7 +17,7 @@ const router = Router();
 
 router.get("/", getEmployeesController);
 router.get("/:id", getEmployeeController);
-router.post("/", validationMiddleware(CreateEmployeeDto), createEmployeeController);
-router.put("/:id", validationMiddleware(CreateEmployeeDto), updateEmployeeController);
+router.post("/", authMiddleware(["admin"]), validationMiddleware(CreateEmployeeDto), createEmployeeController);
+router.put("/:id", authMiddleware(["admin"]), validationMiddleware(CreateEmployeeDto), updateEmployeeController);
 
 export { router };
