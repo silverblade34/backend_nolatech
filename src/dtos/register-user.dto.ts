@@ -30,8 +30,4 @@ export class RegisterUserDto {
   @MinLength(6)
   @IsNotEmpty()
   password: string;
-
-  @IsIn(["employee"])
-  @IsNotEmpty()
-  role: "employee";
 }

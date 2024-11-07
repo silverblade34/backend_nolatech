@@ -18,7 +18,7 @@ export const registerUser = async (userData: RegisterUserDto) => {
     }
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const newUser = await userRepository.create({ ...userData, password: hashedPassword });
+    const newUser = await userRepository.create({ username: userData.username, password: hashedPassword, role: "employee" });
 
     if (!newUser) {
         throw new Error("Hubo un error al crear el usuario");
@@ -30,7 +30,7 @@ export const registerUser = async (userData: RegisterUserDto) => {
         email: userData.email,
         phone: userData.phone,
         hireDate: userData.hireDate,
-        role: userData.role,
+        role: "employee",
         userId: newUser._id,
     };
 
