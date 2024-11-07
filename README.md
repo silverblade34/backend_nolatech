@@ -99,7 +99,7 @@ El proyecto está estructurado de la siguiente manera:
 
 Para facilitar la prueba de la API, hemos proporcionado una **Postman Collection** que contiene ejemplos de solicitudes para cada uno de los endpoints. Puedes importarla en tu Postman utilizando el siguiente enlace:
 
-- [Postman Collection](https://www.postman.com/silverblade34/collection/backend_nolatech)
+- [Postman Collection](https://documenter.getpostman.com/view/24761086/2sAY518fEQ)
 
 Este enlace te llevará directamente a la colección de Postman, desde donde podrás ver y probar las solicitudes predefinidas.
 
@@ -319,6 +319,7 @@ Para ejecutar las pruebas, usa el siguiente comando:
 
 ```bash
 npm test
+```
 
 ## Contribución
 
