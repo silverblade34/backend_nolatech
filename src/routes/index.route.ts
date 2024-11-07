@@ -19,7 +19,6 @@ readdirSync(PATH_ROUTER)
     const cleanName = cleanFileName(fileName);
     if (cleanName !== "index") {
       import(path.resolve(PATH_ROUTER, `${cleanName}.route.ts`)).then((moduleRouter) => {
-        console.log(`Se está cargando la ruta..... /${cleanName}`);
         router.use(`/api/${cleanName}`, moduleRouter.router);
       }).catch((err) => {
         console.error(`Error al cargar la ruta: ${cleanName}`, err);

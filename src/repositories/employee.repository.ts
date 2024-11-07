@@ -6,6 +6,10 @@ export class EmployeeRepository {
     return EmployeeModel.findById(id);
   }
 
+  async findOneByUserId(userId: string): Promise<IEmployee | null> {
+    return EmployeeModel.findOne({ userId });
+  }
+
   async findOneByEmail(email: string): Promise<IEmployee | null> {
     return EmployeeModel.findOne({ email });
   }
@@ -17,7 +21,7 @@ export class EmployeeRepository {
       .exec();
     return employee;
   }
-  
+
 
   async findAll(): Promise<IEmployee[]> {
     return EmployeeModel.find();

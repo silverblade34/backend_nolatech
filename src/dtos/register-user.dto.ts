@@ -1,6 +1,27 @@
-import { IsString, IsIn, MinLength, IsNotEmpty } from "class-validator";
+import { IsString, IsIn, MinLength, IsNotEmpty, IsEmail } from "class-validator";
+import mongoose from "mongoose";
 
 export class RegisterUserDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsNotEmpty()
+  position: string;
+
+  @IsNotEmpty()
+  departmentId: mongoose.Schema.Types.ObjectId;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  phone: string;
+
+  @IsNotEmpty()
+  hireDate: Date;
+
   @IsString()
   @IsNotEmpty()
   username: string;
@@ -10,7 +31,7 @@ export class RegisterUserDto {
   @IsNotEmpty()
   password: string;
 
-  @IsIn(["manager", "employee"])
+  @IsIn(["employee"])
   @IsNotEmpty()
-  role: "manager" | "employee";
+  role: "employee";
 }
