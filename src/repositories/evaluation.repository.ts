@@ -14,6 +14,7 @@ export class EvaluationRepository {
   async findByEmployeeId(employeeId: string): Promise<IEvaluation[]> {
     return await EvaluationModel.find({
       evaluators: { $in: [employeeId] },
+      status: "submitted"
     });
   };
 

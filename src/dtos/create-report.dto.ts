@@ -14,9 +14,6 @@ export class CreateReportDto {
     @IsNotEmpty()
     evaluationId: mongoose.Schema.Types.ObjectId;
 
-    @IsNotEmpty()
-    evaluatorId: mongoose.Schema.Types.ObjectId;
-
     @IsArray()
     @ValidateNested({ each: true })
     answers: AnswerDto[];

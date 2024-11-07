@@ -1,4 +1,5 @@
 import { IsString, IsEnum, IsArray, IsMongoId } from "class-validator";
+import mongoose from "mongoose";
 
 export class CreateEvaluationDto {
   @IsString()
@@ -11,8 +12,8 @@ export class CreateEvaluationDto {
   type: 'self-assessment' | 'peer-assessment' | 'manager-assessment';
 
   @IsMongoId()
-  employeeId: string;
+  employeeId: mongoose.Schema.Types.ObjectId;
 
   @IsArray()
-  evaluators: string[];
+  evaluators: mongoose.Schema.Types.ObjectId[];
 }
