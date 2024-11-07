@@ -5,6 +5,13 @@ Este proyecto proporciona una API RESTful para un sistema de evaluación 360 gra
 ## Tabla de Contenidos
 1. [Instrucciones para configurar y ejecutar el proyecto](#instrucciones-para-configurar-y-ejecutar-el-proyecto)
 2. [Explicación de la estructura del proyecto](#explicación-de-la-estructura-del-proyecto)
+3. [Postman Collection](#postman-collection)
+4. [Swagger API Documentation](#swagger-api-documentation)
+5. [Autenticación y Seguridad](#autenticación-y-seguridad)
+6. [Rutas Principales](#rutas-principales)
+7. [Lógica del Proyecto](#lógica-del-proyecto)
+8. [Evaluaciones y Reportes](#evaluaciones-y-reportes)
+9. [Contribución](#contribución)
 
 ## Instrucciones para configurar y ejecutar el proyecto
 
@@ -87,7 +94,23 @@ El proyecto está estructurado de la siguiente manera:
 ├── /utils              # Funciones y utilidades adicionales
 └── /middlewares        # Middlewares para validación y protección de rutas
 ```
+## Postman Collection
 
+Para facilitar la prueba de la API, hemos proporcionado una **Postman Collection** que contiene ejemplos de solicitudes para cada uno de los endpoints. Puedes importarla en tu Postman utilizando el siguiente enlace:
+
+- [Postman Collection](https://www.postman.com/silverblade34/collection/backend_nolatech)
+
+Este enlace te llevará directamente a la colección de Postman, desde donde podrás ver y probar las solicitudes predefinidas.
+
+## Swagger API Documentation
+
+La documentación de la API está disponible a través de **Swagger UI**. Puedes acceder a ella en la siguiente ruta después de ejecutar el servidor:
+
+```
+http://localhost:3022/api-docs
+```
+
+Esta ruta te llevará a una interfaz interactiva donde podrás consultar todos los endpoints de la API y realizar pruebas directamente desde el navegador.
 ## Autenticación y Seguridad
 
 La API utiliza **JSON Web Tokens (JWT)** para la autenticación. Para obtener un token de acceso, los usuarios deben hacer una solicitud `POST` a `/api/auth/login` con sus credenciales:
