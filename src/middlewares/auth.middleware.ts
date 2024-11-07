@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { handleHttp } from "../utils/error.handle";
+import { TokenPayload } from "../interfaces/token-payload.interface";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
 
@@ -13,10 +14,13 @@ export const authMiddleware = (roles: string[]) => {
     }
     const token = authHeader.split(" ")[1];
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as any;
+      const decoded = jwt.verify(token, JWT_SECRET) as TokenPayload;
+
       if (!roles.includes(decoded.role)) {
         handleHttp(res, "Permisos insuficientes", 403);
+        return;
       }
+
       req.user = decoded;
       next();
     } catch (e: any) {

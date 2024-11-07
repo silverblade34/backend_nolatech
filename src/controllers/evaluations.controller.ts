@@ -2,10 +2,12 @@ import { Request, Response } from "express";
 import { getEvaluations, getEvaluation, insertEvaluation, updateEvaluation } from "../services/evaluations.service";
 import { handleHttp } from "../utils/error.handle";
 import { handleSuccess } from "../utils/success.handle";
+import { TokenPayload } from "../interfaces/token-payload.interface";
 
 export const getEvaluationsController = async (req: Request, res: Response) => {
   try {
-    const evaluations = await getEvaluations();
+    const { entityId, role } = req.user as TokenPayload; 
+    const evaluations = await getEvaluations(entityId, role);
     handleSuccess(res, "Evaluaciones obtenidas exitosamente", evaluations);
   } catch (error) {
     handleHttp(res, error instanceof Error ? error.message : "Error inesperado", 500);

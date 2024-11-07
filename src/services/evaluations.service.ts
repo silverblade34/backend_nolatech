@@ -9,8 +9,12 @@ export const insertEvaluation = async (createEvaluationDto: CreateEvaluationDto)
   return await evaluationRepository.create(createEvaluationDto);
 };
 
-export const getEvaluations = async () => {
-  return await evaluationRepository.findAll();
+export const getEvaluations = async (employeeId: string, role: string) => {
+  if (role == "admin") {
+    return await evaluationRepository.findAll();
+  } else {
+    return await evaluationRepository.findByEmployeeId(employeeId);
+  }
 };
 
 export const getEvaluation = async (id: string) => {

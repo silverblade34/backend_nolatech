@@ -11,6 +11,12 @@ export class EvaluationRepository {
     return EvaluationModel.find();
   }
 
+  async findByEmployeeId(employeeId: string): Promise<IEvaluation[]> {
+    return await EvaluationModel.find({
+      evaluators: { $in: [employeeId] },
+    });
+  };
+
   async findByIdWithUser(id: string): Promise<IEvaluation | null> {
     const evaluation = EvaluationModel.findById(id)
       .populate("employeeId", "name role")
