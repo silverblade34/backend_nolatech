@@ -11,7 +11,8 @@ Este proyecto proporciona una API RESTful para un sistema de evaluación 360 gra
 6. [Rutas Principales](#rutas-principales)
 7. [Lógica del Proyecto](#lógica-del-proyecto)
 8. [Evaluaciones y Reportes](#evaluaciones-y-reportes)
-9. [Contribución](#contribución)
+9. [Pruebas](#pruebas)
+10. [Contribución](#contribución)
 
 ## Instrucciones para configurar y ejecutar el proyecto
 
@@ -304,6 +305,20 @@ Los reportes pueden ser buscados por **empleado** o **departamento**, lo que per
 6. Los reportes de evaluación pueden ser consultados por **empleado** o **departamento**, proporcionando un análisis completo de las evaluaciones realizadas.
 
 Este flujo permite a los administradores gestionar de manera eficiente el proceso de evaluación 360, con una clara separación de roles y un manejo detallado de las evaluaciones, preguntas y reportes.
+
+### Pruebas
+
+Se han implementado pruebas para garantizar el correcto funcionamiento de la aplicación. Las pruebas están divididas en dos categorías: **pruebas de controlador** e **integración**.
+
+1. **Pruebas de Controlador**: Se realizaron dos pruebas para verificar que los controladores de las rutas principales se comportan como se espera.
+2. **Prueba de Integración**: Se realizó una prueba de integración para asegurar que las rutas interactúan correctamente con la base de datos y otros servicios.
+
+#### Ejecutar las Pruebas
+
+Para ejecutar las pruebas, usa el siguiente comando:
+
+```bash
+npm test
 
 ## Contribución
 
