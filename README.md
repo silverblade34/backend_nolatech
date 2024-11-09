@@ -76,7 +76,7 @@ Cuando inicies el proyecto por primera vez, se creará automáticamente un usuar
 - **password**: 123456
 - **role**: admin
 
-Este usuario tiene permisos para gestionar la creación de departamentos y empleados.
+Este usuario tiene permisos para gestionar la creación de todos los mantenimientos.
 
 ## Explicación de la estructura del proyecto
 
